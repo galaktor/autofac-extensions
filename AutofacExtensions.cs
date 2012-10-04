@@ -18,7 +18,7 @@ namespace Autofac
                 .As<IStartable>()
                 .SingleInstance();
 
-            return b.RegisterType<T>();
+            return b.RegisterType<T>().As<T>();
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace Autofac
                 .As<IStartable>()
                 .SingleInstance();
 
-            return b.Register(c);
+            return b.Register(c).As<T>();
         }
     }
 }
