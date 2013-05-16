@@ -36,5 +36,15 @@ namespace Autofac
 
             return b.Register(c).As<T>();
         }
+        
+        public static IRegistrationBuilder<TLimit, TReflectionActivatorData, TStyle> WithParameter<TParam, TLimit, TReflectionActivatorData, TStyle>(this IRegistrationBuilder<TLimit, TReflectionActivatorData, TStyle> registration, Func<ParameterInfo, IComponentContext, TParam> valueProvider) where TReflectionActivatorData : ReflectionActivatorData
+        {
+            return registration.WithParameter((info, context) => info.ParameterType == typeof (TParam), (info, context) => valueProvider(info, context));
+        }
+
+        public static IRegistrationBuilder<TLimit, TReflectionActivatorData, TStyle> WithParameter<TParam, TLimit, TReflectionActivatorData, TStyle>(this IRegistrationBuilder<TLimit, TReflectionActivatorData, TStyle> registration, TParam param) where TReflectionActivatorData : ReflectionActivatorData
+        {
+            return registration.WithParameter((info, context) => info.ParameterType == typeof(TParam), (info, context) => param);
+        }
     }
 }
