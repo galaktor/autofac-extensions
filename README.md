@@ -104,10 +104,10 @@ instantiated in order to the application to function correctly.
 
 ```csharp
 // old-school
-builder.RegisterAndActivate<MyClass>();
+builder.RegisterAndActivate<Foo>();
 
 // fancy-pants
-builder.RegisterAndActivate<MyClass>()
+builder.RegisterAndActivate<Foo>()
     .SingleInstance()
     .WithParamters(/* yadda yadda */);
 
@@ -121,10 +121,10 @@ parameters, like when doing Register(c => ...)
 
 ```csharp
 // old-school
-builder.RegisterAndActivate<MyClass>(c => new MyClass(c.Resolve<ICanHazCheezburger>()));
+builder.RegisterAndActivate<Foo>(c => new Foo(c.Resolve<ICanHazCheezburger>()));
 
 // fancy-pants
-builder.RegisterAndActivate<MyClass>(c => new MyClass(c.Resolve<ImInUrContainur>())
+builder.RegisterAndActivate<Foo>(c => new Foo(c.Resolve<ImInUrContainur>())
     .WithParameters(/* yadda yadda */)
     .OnActivated(/* yadda yadda */);
 ```
