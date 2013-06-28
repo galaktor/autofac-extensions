@@ -17,7 +17,7 @@ namespace Autofac
             foreach (var arg in argParts)
             {
                 var keyValueParts = arg.Split('=');
-                Args.Add(keyValueParts[0],keyValueParts[1]);
+                Args.Add(keyValueParts[0],keyValueParts.Length > 1 ? keyValueParts[1] : null);
             }
         }
     }

@@ -6,13 +6,13 @@ namespace Autofac
 {
     public class Prop
     {
-        private readonly CmdModule target;
+        private readonly CommandLineAwareModule target;
         private readonly PropertyInfo p;
         public string FullName { get; set; }
         public Type Type { get; set; }
         public string Alias { get; set; }
 
-        public Prop(CmdModule target, PropertyInfo p)
+        public Prop(CommandLineAwareModule target, PropertyInfo p)
         {
             this.target = target;
             this.p = p;
@@ -28,6 +28,12 @@ namespace Autofac
 
         public void Set(string value)
         {
+            if (String.IsNullOrWhiteSpace(value) || Type == typeof (bool))
+            {
+                // treat presence of boolean flag as implicit "True" 
+                value = "true";
+            }
+
             var val = Convert.ChangeType(value, Type);
             p.SetValue(target, val,new object[0]);
         }

@@ -4,17 +4,31 @@ using System.Linq;
 
 namespace Autofac
 {
-    public class CmdModule: Module
+    public class CommandLineAwareModule: Module
     {
         private static readonly IEnumerable<ArgBlob> args;
         private IEnumerable<Prop> props;
 
+        // default to enabled
+        private bool enabled = true;
+
         [Alias("on")]
-        public bool Enabled { get; set; }
+        public bool Enabled
+        {
+            get { return enabled; }
+            set { enabled = value; }
+        }
+
+        [Alias("off")]
+        public bool Disabld
+        {
+            get { return enabled; }
+            set { enabled = !value; }
+        }
 
         public string Alias { get; private set; }
 
-        static CmdModule()
+        static CommandLineAwareModule()
         {
             args = Environment.GetCommandLineArgs()
                               .Skip(1)
@@ -24,7 +38,7 @@ namespace Autofac
                               .Select(a => new ArgBlob(a));
         }
 
-        protected CmdModule()
+        protected CommandLineAwareModule()
         {
             this.props = this.GetType().GetProperties().Select(p => new Prop(this,p));
 
@@ -50,14 +64,16 @@ namespace Autofac
                                 select p;
                     foreach (var p in toSet)
                     {
-                        p.Set(a.Value);
+                        p.Set(a.Value);   
                     }
                 }
                 
             }
             
-
-            this._Load(builder);
+            if (Enabled)
+            {
+                this._Load(builder);   
+            }
         }
 
         protected virtual void _Load(ContainerBuilder builder)
