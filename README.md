@@ -2,6 +2,17 @@ autofac-extensions
 ==================
 Some nice helpers for when working with the great .NET IoC container Autofac.
 
+## Configure registered modules via the command line
+
+*coming soon*
+
+Will allow you to set module properties via command line arguments. Along the lines of
+
+```bash
+$>  MyApp.exe -SomeModule:Foo=Bar,Baz=42 -AnotherModule:Disabled
+```
+
+
 ## ScopeFactory<T>
 
 A factory that when called will resolve T within it's own customized lifetime scope. The provided object will be scanned for it's properties, which will independently be registered as services in the new scope only. It's a convenient way to register or replace certain services within their own context and dynamically providing services to that context at runtime.
