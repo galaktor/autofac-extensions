@@ -10,7 +10,7 @@ Why would anybody want that? In cases where you don't just want to resolve a par
 
 ### Example
 
-I shall use the hubmel class "Foo" in the following examples.
+I shall use the humble class "Foo" in the following examples.
 
 ```csharp
 // our Foo expects an Id and ISomeThing to be injected via the constructor
