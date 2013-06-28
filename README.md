@@ -3,6 +3,7 @@ autofac-extensions
 Some nice helpers for when working with the great .NET IoC container Autofac.
 
 ## RegisterAndActivate<T>()
+
 Registers a type and resolves it's dependencies like when doing RegisterType<>().
 Once the container has been configured completely, a single instance of T
 will be resolved (= activated). This is useful for components in your system
@@ -38,6 +39,18 @@ builder.RegisterAndActivate<MyClass>(c => new MyClass(c.Resolve<ImInUrContainur>
     .OnActivated(/* yadda yadda */);
 ```
 
+## Now included in Autofac 3
+*NOTE: The RegisterAndActivate() concept as implemented here was adopted into the official Autofac libraries as of version 3.0.0 beta following my suggestion in ticket 388*
+http://code.google.com/p/autofac/issues/detail?id=388
+http://code.google.com/p/autofac/wiki/ReleaseNotes#3.0.0_Beta_2
+
+
+```csharp
+// Autofac 3
+builder.RegisterAndActivate<MyClass>().AutoActivate();
+
+```
+The libraries you find here are compatible with earlier releases than Autofac 3 (haven't tried it, but at least as far back as 2.5).
 
 build
 ============
