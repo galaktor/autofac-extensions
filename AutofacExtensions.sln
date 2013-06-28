@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutofacExtensions", "AutofacExtensions.csproj", "{D61BB7B4-D1DA-4D35-9E54-D67C5AE94E41}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FD08B965-A160-40C7-9077-BE166C9A457A}"
@@ -9,8 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FD08B9
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "..\TestApp\TestApp.csproj", "{FDBCCD86-01E1-46D2-B8F3-5F573D004F39}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,10 +20,6 @@ Global
 		{D61BB7B4-D1DA-4D35-9E54-D67C5AE94E41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D61BB7B4-D1DA-4D35-9E54-D67C5AE94E41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D61BB7B4-D1DA-4D35-9E54-D67C5AE94E41}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FDBCCD86-01E1-46D2-B8F3-5F573D004F39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FDBCCD86-01E1-46D2-B8F3-5F573D004F39}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FDBCCD86-01E1-46D2-B8F3-5F573D004F39}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FDBCCD86-01E1-46D2-B8F3-5F573D004F39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
