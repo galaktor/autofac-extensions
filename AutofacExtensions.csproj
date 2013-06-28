@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="AutofacExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScopeFactory.cs" />
     <Compile Include="StartableBootstrap.cs" />
   </ItemGroup>
   <ItemGroup>
