@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FD08B9
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLineTester", "..\CommandLineTester\CommandLineTester.csproj", "{5E96CE51-A4F5-445E-BAD9-7B77F76D53F5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLineTester", "CommandLineTester\CommandLineTester.csproj", "{5E96CE51-A4F5-445E-BAD9-7B77F76D53F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
