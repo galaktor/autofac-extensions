@@ -33,7 +33,7 @@ namespace Autofac
             args = Environment.GetCommandLineArgs()
                               .Skip(1)
                               .Where(a => a.StartsWith("-"))
-                              .Select(a => a.SkipWhile(c => c == '-').Aggregate<char,string>("", (agg, e) => agg+=e))
+                              .Select(a => a.SkipWhile(c => c == '-').Aggregate("", (agg, e) => agg+=e))
                               .Where(a => !String.IsNullOrWhiteSpace(a))
                               .Select(a => new ArgBlob(a));
         }
