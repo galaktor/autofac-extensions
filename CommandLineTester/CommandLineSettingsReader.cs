@@ -11,9 +11,12 @@ namespace CommandLineTester
         private List<Type> _modules = new List<Type>();
         private IEnumerable<LoadArg> _loads;
         private IEnumerable<SetArg> _props;
+        
+        public static readonly string[] DefaultLoadFlags = new[] { "load", "l" };
+        public static readonly string[] DefaultSetFlags = new[] { "set", "s" };
 
         public CommandLineSettingsReader()
-            : this(new[] { "load:", "l:" }, new[] { "set:", "s:" })
+            : this(DefaultLoadFlags, DefaultSetFlags)
         { }
 
         public CommandLineSettingsReader(IEnumerable<string> loadFlags, IEnumerable<string> setFlags)
@@ -23,6 +26,9 @@ namespace CommandLineTester
                                   .Where(a => a.StartsWith("-"))
                                   .Select(a => a.SkipWhile(c => c == '-').Aggregate("", (agg, e) => agg += e))
                                   .Where(a => !String.IsNullOrWhiteSpace(a));
+
+            loadFlags = loadFlags.Select(f => f + ":");
+            setFlags = setFlags.Select(f => f + ":");
 
             // TODO: scan for types with Alias attribute and find ones that match the provided name
             // TODO: configurable probing paths, maybe just for assemblies not found?

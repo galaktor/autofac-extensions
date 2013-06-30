@@ -34,7 +34,7 @@ namespace CommandLineTester
         static void Main(string[] args)
         {
             var cb = new ContainerBuilder();
-            cb.RegisterModule<CommandLineSettingsReader>();
+            cb.RegisterModule(new CommandLineSettingsReader());
             var c = cb.Build();
 
             using (var l = c.BeginLifetimeScope())
