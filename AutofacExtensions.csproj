@@ -70,7 +70,7 @@
     <Compile Include="SetArg.cs" />
     <Compile Include="AutofacExtensions.cs" />
     <Compile Include="CommandLineAwareModule.cs" />
-    <Compile Include="Prop.cs" />
+    <Compile Include="PropArg.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScopeFactory.cs" />
     <Compile Include="StartableBootstrap.cs" />

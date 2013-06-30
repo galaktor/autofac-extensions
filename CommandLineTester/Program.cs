@@ -16,6 +16,7 @@ namespace CommandLineTester
 
     public class MyModule: Module
     {
+        public bool On { get; set; }
         public string Foo { get; set; }
         public long Bar { get; set; }
 

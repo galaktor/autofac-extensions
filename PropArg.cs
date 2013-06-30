@@ -5,7 +5,7 @@ using Autofac.Core;
 
 namespace Autofac
 {
-    public class Prop
+    public class PropArg
     {
         private readonly IModule target;
         private readonly PropertyInfo p;
@@ -13,7 +13,7 @@ namespace Autofac
         public Type Type { get; set; }
         public string Alias { get; set; }
 
-        public Prop(IModule target, PropertyInfo p)
+        public PropArg(IModule target, PropertyInfo p)
         {
             this.target = target;
             this.p = p;

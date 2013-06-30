@@ -6,63 +6,11 @@ using Autofac.Core;
 
 namespace CommandLineTester
 {
-    public class LoadArg
-    {
-        public string AssemblyName;
-        public string ModuleTypeName;
-
-        public LoadArg(string arg)
-        {
-            var parts = arg.Split(',').Select(s => s.Trim()).Where(a => !string.IsNullOrWhiteSpace(a)).ToArray();
-
-            switch (parts.Length)
-            {
-                case 2:
-                    // Type and AssemblyName given
-                    ModuleTypeName = parts[0];
-                    AssemblyName = parts[1];
-                    break;
-                case 1:
-                    // only TypeName given
-                    ModuleTypeName = parts[0];
-                    break;
-                default:
-                    throw new ArgumentException("Assembly/Type names in wrong format: " + arg);
-            }
-        }
-
-        public override string ToString()
-        {
-            var result = ModuleTypeName;
-            if (!String.IsNullOrWhiteSpace(AssemblyName))
-            {
-                result += ", " + AssemblyName;
-            }
-
-            return result;
-        }
-    }
-
     public class CommandLineSettingsReader:Module
     {
         private List<Type> _modules = new List<Type>();
         private IEnumerable<LoadArg> _loads;
         private IEnumerable<SetArg> _props;
-        //private string _modulesText = "";
-
-        //public string Modules
-        //{
-        //    get { return _modulesText; }
-        //    set
-        //    {
-        //        //var assembly = Assembly.Load(value);
-        //        // TODO: sanity check type/assembly string?
-        //        var modType = Type.GetType(value);
-
-        //        _modules.Add(modType);
-        //        _modulesText = _modules.Aggregate("", (s, type) => type.FullName + ";");
-        //    }
-        //}
 
         public CommandLineSettingsReader()
         {
@@ -99,7 +47,7 @@ namespace CommandLineTester
                               where a.ModuleTypeName == m1.Name // TODO: ALIAS   || a.ModuleTypeName == this.Alias
                               select a;
 
-                var publicProps = instance.GetType().GetProperties().Select(p => new Prop(instance, p));
+                var publicProps = instance.GetType().GetProperties().Select(p => new PropArg(instance, p));
                 foreach (var match in matches)
                 {
                     foreach (var a in match.Args)

@@ -7,7 +7,7 @@ namespace Autofac
     public class CommandLineAwareModule: Module
     {
         private static readonly IEnumerable<SetArg> args;
-        private IEnumerable<Prop> props;
+        private IEnumerable<PropArg> props;
 
         // default to enabled
         private bool enabled = true;
@@ -40,7 +40,7 @@ namespace Autofac
 
         protected CommandLineAwareModule()
         {
-            this.props = this.GetType().GetProperties().Select(p => new Prop(this,p));
+            this.props = this.GetType().GetProperties().Select(p => new PropArg(this,p));
 
             var aliasAtt = this.GetType().GetCustomAttributes(true).FirstOrDefault(a => a.GetType() == typeof(AliasAttribute)) as AliasAttribute;
             if (aliasAtt != null)
