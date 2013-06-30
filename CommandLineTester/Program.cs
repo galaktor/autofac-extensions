@@ -14,11 +14,14 @@ namespace CommandLineTester
         }
     }
 
+    [Alias("mym")]
     public class MyModule: Module
     {
         public bool On { get; set; }
         public string Foo { get; set; }
+        [Alias("b")]
         public long Bar { get; set; }
+        public string FooBarBaz { get; set; }
 
         protected override void Load(ContainerBuilder builder)
         {

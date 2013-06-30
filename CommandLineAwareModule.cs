@@ -52,7 +52,7 @@ namespace Autofac
         protected sealed override void Load(ContainerBuilder builder)
         {
             var matches = from a in args
-                          where a.ModuleTypeName == this.Alias || a.ModuleTypeName == this.GetType().Name
+                          where a.TargetName == this.Alias || a.TargetName == this.GetType().Name
                           select a;
 
             foreach (var m in matches)
