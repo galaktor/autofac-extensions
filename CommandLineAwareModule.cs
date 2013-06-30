@@ -6,7 +6,7 @@ namespace Autofac
 {
     public class CommandLineAwareModule: Module
     {
-        private static readonly IEnumerable<ArgBlob> args;
+        private static readonly IEnumerable<SetArg> args;
         private IEnumerable<Prop> props;
 
         // default to enabled
@@ -35,7 +35,7 @@ namespace Autofac
                               .Where(a => a.StartsWith("-"))
                               .Select(a => a.SkipWhile(c => c == '-').Aggregate("", (agg, e) => agg+=e))
                               .Where(a => !String.IsNullOrWhiteSpace(a))
-                              .Select(a => new ArgBlob(a));
+                              .Select(a => new SetArg(a));
         }
 
         protected CommandLineAwareModule()
@@ -49,10 +49,10 @@ namespace Autofac
             }
         }
 
-        protected sealed override void Load(ContainerBuilder builder)        
+        protected sealed override void Load(ContainerBuilder builder)
         {
             var matches = from a in args
-                          where a.Target == this.Alias || a.Target == this.GetType().Name
+                          where a.ModuleTypeName == this.Alias || a.ModuleTypeName == this.GetType().Name
                           select a;
 
             foreach (var m in matches)
@@ -64,15 +64,15 @@ namespace Autofac
                                 select p;
                     foreach (var p in toSet)
                     {
-                        p.Set(a.Value);   
+                        p.Set(a.Value);
                     }
                 }
-                
+
             }
-            
+
             if (Enabled)
             {
-                this._Load(builder);   
+                this._Load(builder);
             }
         }
 

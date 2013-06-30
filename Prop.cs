@@ -1,18 +1,19 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using Autofac.Core;
 
 namespace Autofac
 {
     public class Prop
     {
-        private readonly CommandLineAwareModule target;
+        private readonly IModule target;
         private readonly PropertyInfo p;
         public string FullName { get; set; }
         public Type Type { get; set; }
         public string Alias { get; set; }
 
-        public Prop(CommandLineAwareModule target, PropertyInfo p)
+        public Prop(IModule target, PropertyInfo p)
         {
             this.target = target;
             this.p = p;

@@ -67,7 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AliasAttribute.cs" />
-    <Compile Include="ArgBlob.cs" />
+    <Compile Include="SetArg.cs" />
     <Compile Include="AutofacExtensions.cs" />
     <Compile Include="CommandLineAwareModule.cs" />
     <Compile Include="Prop.cs" />
