@@ -13,6 +13,10 @@ namespace CommandLineTester
         private IEnumerable<SetArg> _props;
 
         public CommandLineSettingsReader()
+            : this(new[] { "load:", "l:" }, new[] { "set:", "s:" })
+        { }
+
+        public CommandLineSettingsReader(IEnumerable<string> loadFlags, IEnumerable<string> setFlags)
         {
             var args = Environment.GetCommandLineArgs()
                                   .Skip(1)
@@ -22,14 +26,16 @@ namespace CommandLineTester
 
             // TODO: scan for types with Alias attribute and find ones that match the provided name
             // TODO: configurable probing paths, maybe just for assemblies not found?
-            _loads = args.Where(a => a.StartsWith("load:") || a.StartsWith("l:")).Select(a => new LoadArg(a.Substring(a.IndexOf(':') + 1)));
+            _loads = args.Where(a => loadFlags.Any(a.StartsWith))
+                         .Select(a => new LoadArg(a.Substring(a.IndexOf(':') + 1)));
             foreach (var l in _loads)
             {
                 var t = Type.GetType(l.ToString());
                 _modules.Add(t);
             }
 
-            _props = args.Where(a => a.StartsWith("set:") || a.StartsWith("s:")).Select(a => new SetArg(a.Substring(a.IndexOf(':') + 1)));
+            _props = args.Where(a => setFlags.Any(a.StartsWith))
+                         .Select(a => new SetArg(a.Substring(a.IndexOf(':') + 1)));
             // TODO: property config
             // TODO: property AutoAlias via CamelCase initials (no need for AliasAttribute)
         }
