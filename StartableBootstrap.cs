@@ -1,10 +1,8 @@
-using System;
-
 namespace Autofac
 {
     /// <summary>
-    /// Used to force the container to activate a component once when the configuration has completed.
-    /// See http://code.google.com/p/autofac/wiki/Startable for details
+    ///     Used to force the container to activate a component once when the configuration has completed.
+    ///     See http://code.google.com/p/autofac/wiki/Startable for details
     /// </summary>
     /// <typeparam name="T"></typeparam>
     internal class StartableBootstrap<T> : IStartable

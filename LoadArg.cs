@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Linq;
 
-namespace CommandLineTester
+namespace Autofac
 {
     public class LoadArg
     {
@@ -10,7 +10,7 @@ namespace CommandLineTester
 
         public LoadArg(string arg)
         {
-            var parts = arg.Split(',').Select(s => s.Trim()).Where(a => !string.IsNullOrWhiteSpace(a)).ToArray();
+            string[] parts = arg.Split(',').Select(s => s.Trim()).Where(a => !string.IsNullOrWhiteSpace(a)).ToArray();
 
             switch (parts.Length)
             {
@@ -30,7 +30,7 @@ namespace CommandLineTester
 
         public override string ToString()
         {
-            var result = ModuleTypeName;
+            string result = ModuleTypeName;
             if (!String.IsNullOrWhiteSpace(AssemblyName))
             {
                 result += ", " + AssemblyName;

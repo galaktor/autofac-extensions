@@ -61,12 +61,18 @@
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
       <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AliasAttribute.cs" />
+    <Compile Include="CmdLineModuleElement.cs" />
+    <Compile Include="CmdLineModulesCollection.cs" />
+    <Compile Include="CmdLineSectionHandler.cs" />
+    <Compile Include="CommandLineSettingsReader.cs" />
+    <Compile Include="LoadArg.cs" />
     <Compile Include="SetArg.cs" />
     <Compile Include="AutofacExtensions.cs" />
     <Compile Include="CommandLineAwareModule.cs" />

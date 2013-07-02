@@ -1,6 +1,5 @@
 ﻿using System;
 using Autofac;
-using Module = Autofac.Module;
 
 namespace CommandLineTester
 {
@@ -15,12 +14,14 @@ namespace CommandLineTester
     }
 
     [Alias("mym")]
-    public class MyModule: Module
+    public class MyModule : Module
     {
         public bool On { get; set; }
         public string Foo { get; set; }
+
         [Alias("b")]
         public long Bar { get; set; }
+
         public string FooBarBaz { get; set; }
 
         protected override void Load(ContainerBuilder builder)
@@ -32,18 +33,18 @@ namespace CommandLineTester
         }
     }
 
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var cb = new ContainerBuilder();
             cb.RegisterModule(new CommandLineSettingsReader());
-            var c = cb.Build();
+            IContainer c = cb.Build();
 
-            using (var l = c.BeginLifetimeScope())
+            using (ILifetimeScope l = c.BeginLifetimeScope())
             {
-                //var sf = l.Resolve<ScopeFactory<Foo>>();
-                //sf.Get(new {blah = "test"});
+                var sf = l.Resolve<ScopeFactory<Foo>>();
+                sf.Get(new {blah = "test"});
             }
         }
     }
