@@ -188,7 +188,7 @@ http://code.google.com/p/autofac/wiki/ReleaseNotes#3.0.0_Beta_2
 
 ```csharp
 // Autofac 3
-builder.RegisterAndActivate<MyClass>().AutoActivate();
+builder.RegisterType<MyClass>().AutoActivate();
 
 ```
 The libraries you find here are compatible with earlier releases than Autofac 3 (haven't tried it, but at least as far back as 2.5).
