@@ -73,11 +73,11 @@ namespace Autofac
 
             if (Enabled)
             {
-                _Load(builder);
+                Load_(builder);
             }
         }
 
-        protected virtual void _Load(ContainerBuilder builder)
+        protected virtual void Load_(ContainerBuilder builder)
         {
         }
     }

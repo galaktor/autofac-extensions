@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using Autofac.Core;
+using Autofac.Configuration.Util;
 
 namespace Autofac
 {
@@ -36,8 +37,9 @@ namespace Autofac
                 // treat presence of boolean flag as implicit "True" 
                 value = "true";
             }
-
-            object val = Convert.ChangeType(value, Type);
+            
+            //object val = Convert.ChangeType(value, Type);
+            var val = value.ConvertTo(this.Type);
             p.SetValue(target, val, new object[0]);
         }
     }

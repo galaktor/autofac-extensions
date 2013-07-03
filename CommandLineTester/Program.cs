@@ -13,13 +13,10 @@ namespace CommandLineTester
         }
     }
 
-    [Alias("mym")]
     public class MyModule : Module
     {
-        public bool On { get; set; }
         public string Foo { get; set; }
 
-        [Alias("b")]
         public long Bar { get; set; }
 
         public string FooBarBaz { get; set; }
@@ -30,6 +27,20 @@ namespace CommandLineTester
             builder.RegisterAndActivate<ScopeFactory<Foo>>();
 
             Console.WriteLine("MyModule.Load()");
+        }
+    }
+
+    public class CmdModule: CommandLineAwareModule
+    {
+        [Alias("c")]
+        public ConsoleColor Color { get; set; }
+
+        [Alias("nr")]
+        public ulong Number { get; set; }
+
+        protected override void Load_(ContainerBuilder builder)
+        {
+            Console.WriteLine("CmdModule.Load()");
         }
     }
 
