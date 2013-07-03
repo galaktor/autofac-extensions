@@ -10,19 +10,21 @@ using Autofac.CommandLine.Args;
 
 namespace Autofac.CommandLine
 {
+    // working
+    // -MyModule:foo=bar
+    // -m:f=bar
+
     public class CommandLineAwareModule : Module
     {
+        public static readonly string[] DefaultSetFlags = new[] {"set:", "s:"};
         private readonly IEnumerable<PropArg> props;
-
-        // default to enabled
+        private readonly List<SetArg> sets = new List<SetArg>();
         private bool enabled = true;
 
-        public static readonly string[] DefaultSetFlags = new[] { "set:", "s:" };
-        private List<SetArg> sets = new List<SetArg>();
-
         public CommandLineAwareModule()
-            :this(DefaultSetFlags)
-        { }
+            : this(DefaultSetFlags)
+        {
+        }
 
         public CommandLineAwareModule(IEnumerable<string> setFlags)
         {

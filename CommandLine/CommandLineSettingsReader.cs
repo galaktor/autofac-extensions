@@ -11,11 +11,9 @@ using Autofac.Configuration.Core;
 
 namespace Autofac.CommandLine
 {
+    // working:
     // -l:MyModule,MyAssembly
     // -l:MyModule,MyAssembly:foo=bar,baz=42
-    // -MyModule,MyAssembly:foo=bar
-    // -MyModule:foo=bar
-    // -m:f=bar
 
 
     // TODO: -l:MyModule,MyAssembly:foo=bar,baz=42
@@ -29,7 +27,8 @@ namespace Autofac.CommandLine
 
         public CommandLineSettingsReader()
             : this(DefaultLoadFlags)
-        { }
+        {
+        }
 
         public CommandLineSettingsReader(IEnumerable<string> loadFlags)
         {
