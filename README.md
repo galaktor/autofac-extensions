@@ -4,14 +4,54 @@ Some nice helpers for when working with the great .NET IoC container Autofac.
 
 ## Configure registered modules via the command line
 
-*coming soon*
-
-Will allow you to set module properties via command line arguments. Along the lines of
+Allows you to load modules and set module properties via command line arguments. Example:
 
 ```bash
-$>  MyApp.exe -SomeModule:Foo=Bar,Baz=42 -AnotherModule:Disabled
+$>  MyApp.exe -l:SomeModule,MyAssembly -SomeModule:Foo=Bar,Baz=42 -AnotherModule:Disabled
 ```
 
+Detailed documentation to follow soon. The gist of it is that for loading modules via the command line, you can use the CommandLineSettingsReader like so
+
+```csharp
+var cb = new ContainerBuilder();
+cb.RegisterModule(new CommandLineSettingsReader());
+IContainer c = cb.Build();
+
+using (ILifetimeScope l = c.BeginLifetimeScope())
+{ 
+    // resolve stuff, etc
+}
+```
+
+At the moment this only support loading of modules, I will expand it soon to provide everything you can configure in XML should you want to do so.
+
+
+For modules to be command line configurable you have to derive your module from CommandLineAwareModule instead of the vanilla Autofac Module. It's not great, but does the job right now, but I'm still working on it.
+
+```csharp
+[Alias("m")]
+public class MyModule: CommandLineAwareModule
+{
+    [Alias("nr")]
+    public int SomeNumber { get; set; }
+    
+    // notice how - for now - you must override Load_ with an underscore ("_")
+    protected override void Load_(ContainerBuilder builder)
+    {
+        // register stuff, etc
+    }
+}
+```
+
+Notice that you can either use the full names of types and properties, or mark them with AliasAttribute to make the command line options less verbose.
+
+```bash
+$>  MyApp.exe -MyModule:SomeNumber=42
+```
+
+```bash
+$>  MyApp.exe -m:nr=42
+```
 
 ## ScopeFactory<T>
 
