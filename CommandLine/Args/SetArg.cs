@@ -17,12 +17,12 @@ namespace Autofac.CommandLine.Args
         {
             // TODO: checks
 
-            string[] parts = rawblob.Split(':', ',').Select(a => a.Trim()).Where(a => !string.IsNullOrWhiteSpace(a)).ToArray();
-            TargetName = parts[0];
+            var parts = rawblob.Split(':').Select(a => a.Trim()).Where(a => !string.IsNullOrWhiteSpace(a));
+            TargetName = parts.First();
 
-            for (int i = 1; i < parts.Length; i++)
+            var rest = parts.Skip(1).SelectMany(s => s.Split(','));
+            foreach (var arg in rest)
             {
-                string arg = parts[i];
                 Args.Add(new AssignmentArg(arg));
             }
         }

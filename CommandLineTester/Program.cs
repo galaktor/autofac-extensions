@@ -60,8 +60,8 @@ namespace CommandLineTester
 
             using (ILifetimeScope l = c.BeginLifetimeScope())
             {
-                var sf = l.Resolve<ScopeFactory<Foo>>();
-                sf.Get(new {blah = "test"});
+                //var sf = l.Resolve<ScopeFactory<Foo>>();
+                //sf.Get(new {blah = "test"});
             }
         }
     }

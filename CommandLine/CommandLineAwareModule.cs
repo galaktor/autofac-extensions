@@ -12,19 +12,32 @@ namespace Autofac.CommandLine
 {
     public class CommandLineAwareModule : Module
     {
-        private static readonly IEnumerable<SetArg> args;
         private readonly IEnumerable<PropArg> props;
 
         // default to enabled
         private bool enabled = true;
 
-        static CommandLineAwareModule()
-        {
-            args = Environment.GetCommandLineArgs().Skip(1).Where(a => a.StartsWith("-")).Select(a => a.SkipWhile(c => c == '-').Aggregate("", (agg, e) => agg += e)).Where(a => !String.IsNullOrWhiteSpace(a)).Select(a => new SetArg(a));
-        }
+        public static readonly string[] DefaultSetFlags = new[] { "set:", "s:" };
+        private List<SetArg> sets = new List<SetArg>();
 
-        protected CommandLineAwareModule()
+        public CommandLineAwareModule()
+            :this(DefaultSetFlags)
+        { }
+
+        public CommandLineAwareModule(IEnumerable<string> setFlags)
         {
+            var args = Environment.GetCommandLineArgs().AsCleanedArgs();
+
+            foreach (var arg in args)
+            {
+                var setFlag = setFlags.FirstOrDefault(f => arg.StartsWith(f, StringComparison.InvariantCultureIgnoreCase));
+                if (setFlag != null)
+                {
+                    string chomped = arg.Substring(setFlag.Length);
+                    sets.Add(new SetArg(chomped));
+                }
+            }
+
             props = GetType().GetProperties().Select(p => new PropArg(this, p));
 
             var aliasAtt = GetType().GetCustomAttributes(true).FirstOrDefault(a => a.GetType() == typeof (AliasAttribute)) as AliasAttribute;
@@ -52,9 +65,9 @@ namespace Autofac.CommandLine
 
         protected override sealed void Load(ContainerBuilder builder)
         {
-            IEnumerable<SetArg> matches = from a in args
-                                          where a.TargetName == Alias || a.TargetName == GetType().Name
-                                          select a;
+            IEnumerable<SetArg> matches = from s in sets
+                                          where s.TargetName == Alias || s.TargetName == GetType().Name
+                                          select s;
 
             foreach (var m in matches)
             {

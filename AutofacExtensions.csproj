@@ -74,6 +74,7 @@
     <Compile Include="CommandLine\CmdLinePropertyElement.cs" />
     <Compile Include="CommandLine\CmdLinePropertyElementCollection.cs" />
     <Compile Include="CommandLine\CmdLineSectionHandler.cs" />
+    <Compile Include="CommandLine\CommandLineExtensions.cs" />
     <Compile Include="CommandLine\CommandLineSettingsReader.cs" />
     <Compile Include="LifetimeScopeConfigurationDelegate.cs" />
     <Compile Include="CommandLine\Args\LoadArg.cs" />
