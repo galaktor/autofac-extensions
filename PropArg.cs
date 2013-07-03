@@ -17,9 +17,7 @@ namespace Autofac
             this.p = p;
             FullName = p.Name;
             Type = p.PropertyType;
-            var aliasAtt =
-                p.GetCustomAttributes(true).FirstOrDefault(a => a.GetType() == typeof (AliasAttribute)) as
-                AliasAttribute;
+            var aliasAtt = p.GetCustomAttributes(true).FirstOrDefault(a => a.GetType() == typeof (AliasAttribute)) as AliasAttribute;
             if (aliasAtt != null)
             {
                 Alias = aliasAtt.Alias;
@@ -38,7 +36,6 @@ namespace Autofac
                 value = "true";
             }
             
-            //object val = Convert.ChangeType(value, Type);
             var val = value.ConvertTo(this.Type);
             p.SetValue(target, val, new object[0]);
         }
