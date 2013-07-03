@@ -56,8 +56,7 @@ namespace Autofac
             {
                 object service = prop.GetValue(context, null);
                 Type serviceType = prop.PropertyType;
-                builder.Register(c => service)
-                       .As(serviceType);
+                builder.Register(c => service).As(serviceType);
             }
         }
 
@@ -112,8 +111,7 @@ namespace Autofac
                 {
                     RegisterContextProperties(context, builder);
                     OnLifetimeScopeConfiguring(parent, builder);
-                })
-                         .Resolve<TResult>();
+                }).Resolve<TResult>();
         }
 
         /// <summary>

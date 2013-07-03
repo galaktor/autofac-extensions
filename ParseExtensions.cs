@@ -22,10 +22,7 @@ namespace Autofac
                 separators = new[] {' '}; // default to space
             }
 
-            return input.Split(separators)
-                        .Select(s => s.Trim())
-                        .Where(s => !String.IsNullOrWhiteSpace(s))
-                        .ToArray();
+            return input.Split(separators).Select(s => s.Trim()).Where(s => !String.IsNullOrWhiteSpace(s)).ToArray();
         }
     }
 }
