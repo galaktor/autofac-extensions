@@ -1,10 +1,15 @@
+// Copyright (c)  2013 Raphael Estrada
+// License:       The MIT License - see "LICENSE" file for details
+// Author URL:    http://www.galaktor.net
+// Author E-Mail: galaktor@gmx.de
+
 using System;
 using System.Linq;
 using System.Reflection;
-using Autofac.Core;
 using Autofac.Configuration.Util;
+using Autofac.Core;
 
-namespace Autofac
+namespace Autofac.CommandLine.Args
 {
     public class PropArg
     {
@@ -17,7 +22,9 @@ namespace Autofac
             this.p = p;
             FullName = p.Name;
             Type = p.PropertyType;
-            var aliasAtt = p.GetCustomAttributes(true).FirstOrDefault(a => a.GetType() == typeof (AliasAttribute)) as AliasAttribute;
+            var aliasAtt =
+                p.GetCustomAttributes(true).FirstOrDefault(a => a.GetType() == typeof (AliasAttribute)) as
+                AliasAttribute;
             if (aliasAtt != null)
             {
                 Alias = aliasAtt.Alias;
@@ -35,8 +42,8 @@ namespace Autofac
                 // treat presence of boolean flag as implicit "True" 
                 value = "true";
             }
-            
-            var val = value.ConvertTo(this.Type);
+
+            object val = value.ConvertTo(Type);
             p.SetValue(target, val, new object[0]);
         }
     }

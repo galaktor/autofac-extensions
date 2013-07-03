@@ -1,5 +1,11 @@
-﻿using System;
+﻿// Copyright (c)  2013 Raphael Estrada
+// License:       The MIT License - see "LICENSE" file for details
+// Author URL:    http://www.galaktor.net
+// Author E-Mail: galaktor@gmx.de
+
+using System;
 using Autofac;
+using Autofac.CommandLine;
 
 namespace CommandLineTester
 {
@@ -30,7 +36,7 @@ namespace CommandLineTester
         }
     }
 
-    public class CmdModule: CommandLineAwareModule
+    public class CmdModule : Module
     {
         [Alias("c")]
         public ConsoleColor Color { get; set; }
@@ -38,7 +44,7 @@ namespace CommandLineTester
         [Alias("nr")]
         public ulong Number { get; set; }
 
-        protected override void Load_(ContainerBuilder builder)
+        protected override void Load(ContainerBuilder builder)
         {
             Console.WriteLine("CmdModule.Load()");
         }

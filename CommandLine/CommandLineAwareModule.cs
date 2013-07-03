@@ -1,8 +1,14 @@
+// Copyright (c)  2013 Raphael Estrada
+// License:       The MIT License - see "LICENSE" file for details
+// Author URL:    http://www.galaktor.net
+// Author E-Mail: galaktor@gmx.de
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Autofac.CommandLine.Args;
 
-namespace Autofac
+namespace Autofac.CommandLine
 {
     public class CommandLineAwareModule : Module
     {
@@ -57,14 +63,14 @@ namespace Autofac
                                           where a.TargetName == Alias || a.TargetName == GetType().Name
                                           select a;
 
-            foreach (SetArg m in matches)
+            foreach (var m in matches)
             {
                 foreach (var a in m.Args)
                 {
                     IEnumerable<PropArg> toSet = from p in props
                                                  where p.FullName == a.Key || p.Alias == a.Key
                                                  select p;
-                    foreach (PropArg p in toSet)
+                    foreach (var p in toSet)
                     {
                         p.Set(a.Value);
                     }

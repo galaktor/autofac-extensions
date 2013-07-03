@@ -1,11 +1,16 @@
-﻿using System.Collections.Generic;
+﻿// Copyright (c)  2013 Raphael Estrada
+// License:       The MIT License - see "LICENSE" file for details
+// Author URL:    http://www.galaktor.net
+// Author E-Mail: galaktor@gmx.de
+
+using System.Collections.Generic;
 using System.Linq;
 
-namespace Autofac
+namespace Autofac.CommandLine.Args
 {
     public class SetArg
     {
-        public Dictionary<string, string> Args = new Dictionary<string, string>();
+        public List<AssignmentArg> Args = new List<AssignmentArg>();
         public string TargetName;
 
         public SetArg(string rawblob)
@@ -19,8 +24,7 @@ namespace Autofac
             for (int i = 1; i < parts.Length; i++)
             {
                 string arg = parts[i];
-                string[] keyValueParts = arg.Split('=');
-                Args.Add(keyValueParts[0], keyValueParts.Length > 1 ? keyValueParts[1] : null);
+                Args.Add(new AssignmentArg(arg));
             }
         }
     }

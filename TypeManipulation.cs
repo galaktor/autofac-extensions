@@ -1,3 +1,8 @@
+// Copyright (c)  2013 Raphael Estrada
+// License:       The MIT License - see "LICENSE" file for details
+// Author URL:    http://www.galaktor.net
+// Author E-Mail: galaktor@gmx.de
+
 using System;
 using System.ComponentModel;
 using System.Configuration;
@@ -19,7 +24,7 @@ namespace Autofac.Configuration.Util
                 return destinationType.IsValueType ? Activator.CreateInstance(destinationType) : null;
 
             //is there an explicit conversion
-            var converter = TypeDescriptor.GetConverter(value.GetType());
+            TypeConverter converter = TypeDescriptor.GetConverter(value.GetType());
             if (converter.CanConvertTo(destinationType))
                 return converter.ConvertTo(value, destinationType);
 
@@ -35,16 +40,18 @@ namespace Autofac.Configuration.Util
             //is there a TryParse method
             if (value is string)
             {
-                var parser = destinationType.GetMethod("TryParse", BindingFlags.Static | BindingFlags.Public);
+                MethodInfo parser = destinationType.GetMethod("TryParse", BindingFlags.Static | BindingFlags.Public);
                 if (parser != null)
                 {
-                    var parameters = new[] { value, null };
-                    if ((bool)parser.Invoke(null, parameters))
+                    var parameters = new[] {value, null};
+                    if ((bool) parser.Invoke(null, parameters))
                         return parameters[1];
                 }
             }
 
-            throw new ConfigurationErrorsException(String.Format(CultureInfo.CurrentCulture, "Unable to convert object of type '{0}' to type '{1}'.", value.GetType(), destinationType));
+            throw new ConfigurationErrorsException(String.Format(CultureInfo.CurrentCulture,
+                                                                 "Unable to convert object of type '{0}' to type '{1}'.",
+                                                                 value.GetType(), destinationType));
         }
     }
 }

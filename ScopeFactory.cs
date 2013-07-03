@@ -1,3 +1,8 @@
+// Copyright (c)  2013 Raphael Estrada
+// License:       The MIT License - see "LICENSE" file for details
+// Author URL:    http://www.galaktor.net
+// Author E-Mail: galaktor@gmx.de
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,8 +11,6 @@ using Autofac.Core;
 
 namespace Autofac
 {
-    public delegate void LifetimeScopeConfigurationDelegate(ILifetimeScope parentScope, ContainerBuilder childBuilder);
-
     /// <summary>
     ///     Resolves an instance into a child lifetime scope, with optional ctor arguments and using a context object that can provided custom services to the child lifetime scope.
     /// </summary>
@@ -49,7 +52,7 @@ namespace Autofac
         {
             Type type = context.GetType();
             PropertyInfo[] props = type.GetProperties();
-            foreach (PropertyInfo prop in props)
+            foreach (var prop in props)
             {
                 object service = prop.GetValue(context, null);
                 Type serviceType = prop.PropertyType;
