@@ -73,8 +73,7 @@ namespace Autofac
             {
                 output = Get(context, args);
                 return true;
-            }
-            catch (Exception)
+            } catch (Exception)
             {
                 output = default(TResult);
                 return false;
@@ -127,8 +126,7 @@ namespace Autofac
             {
                 output = Get(context);
                 return true;
-            }
-            catch (Exception)
+            } catch (Exception)
             {
                 output = default(TResult);
                 return false;

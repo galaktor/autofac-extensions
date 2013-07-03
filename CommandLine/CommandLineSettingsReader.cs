@@ -34,21 +34,14 @@ namespace Autofac.CommandLine
         {
             var handler = new CmdLineSectionHandler();
 
-            IEnumerable<string> args = Environment.GetCommandLineArgs()
-                                                  .Skip(1)
-                                                  .Where(a => a.StartsWith("-"))
-                                                  .Select(
-                                                      a =>
-                                                      a.SkipWhile(c => c == '-').Aggregate("", (agg, e) => agg += e))
-                                                  .Where(a => !String.IsNullOrWhiteSpace(a));
+            IEnumerable<string> args = Environment.GetCommandLineArgs().Skip(1).Where(a => a.StartsWith("-")).Select(a => a.SkipWhile(c => c == '-').Aggregate("", (agg, e) => agg += e)).Where(a => !String.IsNullOrWhiteSpace(a));
 
             // TODO: scan for types with Alias attribute and find ones that match the provided name
             // TODO: configurable probing paths, maybe just for assemblies not found?
 
             foreach (var arg in args)
             {
-                string loadFlag =
-                    loadFlags.FirstOrDefault(f => arg.StartsWith(f, StringComparison.InvariantCultureIgnoreCase));
+                string loadFlag = loadFlags.FirstOrDefault(f => arg.StartsWith(f, StringComparison.InvariantCultureIgnoreCase));
                 //var setFlag = setFlags.FirstOrDefault(f => arg.StartsWith(f, StringComparison.InvariantCultureIgnoreCase));
                 if (loadFlag != null)
                 {

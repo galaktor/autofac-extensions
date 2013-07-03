@@ -22,9 +22,7 @@ namespace Autofac.CommandLine.Args
             this.p = p;
             FullName = p.Name;
             Type = p.PropertyType;
-            var aliasAtt =
-                p.GetCustomAttributes(true).FirstOrDefault(a => a.GetType() == typeof (AliasAttribute)) as
-                AliasAttribute;
+            var aliasAtt = p.GetCustomAttributes(true).FirstOrDefault(a => a.GetType() == typeof (AliasAttribute)) as AliasAttribute;
             if (aliasAtt != null)
             {
                 Alias = aliasAtt.Alias;

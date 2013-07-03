@@ -36,7 +36,7 @@ namespace CommandLineTester
         }
     }
 
-    public class CmdModule : Module
+    public class CmdModule : CommandLineAwareModule
     {
         [Alias("c")]
         public ConsoleColor Color { get; set; }
@@ -44,7 +44,7 @@ namespace CommandLineTester
         [Alias("nr")]
         public ulong Number { get; set; }
 
-        protected override void Load(ContainerBuilder builder)
+        protected override void Load_(ContainerBuilder builder)
         {
             Console.WriteLine("CmdModule.Load()");
         }

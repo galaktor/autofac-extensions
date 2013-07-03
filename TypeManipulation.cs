@@ -18,7 +18,8 @@ namespace Autofac.Configuration.Util
         // - renamed from ChangeToCompatibleType
         public static object ConvertTo(this object value, Type destinationType)
         {
-            if (destinationType == null) throw new ArgumentNullException("destinationType");
+            if (destinationType == null)
+                throw new ArgumentNullException("destinationType");
 
             if (value == null)
                 return destinationType.IsValueType ? Activator.CreateInstance(destinationType) : null;
@@ -49,9 +50,7 @@ namespace Autofac.Configuration.Util
                 }
             }
 
-            throw new ConfigurationErrorsException(String.Format(CultureInfo.CurrentCulture,
-                                                                 "Unable to convert object of type '{0}' to type '{1}'.",
-                                                                 value.GetType(), destinationType));
+            throw new ConfigurationErrorsException(String.Format(CultureInfo.CurrentCulture, "Unable to convert object of type '{0}' to type '{1}'.", value.GetType(), destinationType));
         }
     }
 }

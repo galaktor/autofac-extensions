@@ -51,7 +51,10 @@ namespace Autofac.CommandLine.Args
 
         public IEnumerable<AssignmentArg> Properties
         {
-            get { return _properties; }
+            get
+            {
+                return _properties;
+            }
         }
 
         public override string ToString()

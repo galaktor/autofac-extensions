@@ -20,21 +20,14 @@ namespace Autofac.CommandLine
 
         static CommandLineAwareModule()
         {
-            args = Environment.GetCommandLineArgs()
-                              .Skip(1)
-                              .Where(a => a.StartsWith("-"))
-                              .Select(a => a.SkipWhile(c => c == '-').Aggregate("", (agg, e) => agg += e))
-                              .Where(a => !String.IsNullOrWhiteSpace(a))
-                              .Select(a => new SetArg(a));
+            args = Environment.GetCommandLineArgs().Skip(1).Where(a => a.StartsWith("-")).Select(a => a.SkipWhile(c => c == '-').Aggregate("", (agg, e) => agg += e)).Where(a => !String.IsNullOrWhiteSpace(a)).Select(a => new SetArg(a));
         }
 
         protected CommandLineAwareModule()
         {
             props = GetType().GetProperties().Select(p => new PropArg(this, p));
 
-            var aliasAtt =
-                GetType().GetCustomAttributes(true).FirstOrDefault(a => a.GetType() == typeof (AliasAttribute)) as
-                AliasAttribute;
+            var aliasAtt = GetType().GetCustomAttributes(true).FirstOrDefault(a => a.GetType() == typeof (AliasAttribute)) as AliasAttribute;
             if (aliasAtt != null)
             {
                 Alias = aliasAtt.Alias;
@@ -44,15 +37,27 @@ namespace Autofac.CommandLine
         [Alias("on")]
         public bool Enabled
         {
-            get { return enabled; }
-            set { enabled = value; }
+            get
+            {
+                return enabled;
+            }
+            set
+            {
+                enabled = value;
+            }
         }
 
         [Alias("off")]
         public bool Disabld
         {
-            get { return enabled; }
-            set { enabled = !value; }
+            get
+            {
+                return enabled;
+            }
+            set
+            {
+                enabled = !value;
+            }
         }
 
         public string Alias { get; private set; }
