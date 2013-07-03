@@ -20,9 +20,12 @@ namespace Autofac
         /// <param name="b">The container builder used to register the service.</param>
         public static IRegistrationBuilder<T, ConcreteReflectionActivatorData, SingleRegistrationStyle> RegisterAndActivate<T>(this ContainerBuilder b)
         {
-            b.RegisterType<StartableBootstrap<T>>().As<IStartable>().SingleInstance();
+            b.RegisterType<StartableBootstrap<T>>()
+             .As<IStartable>()
+             .SingleInstance();
 
-            return b.RegisterType<T>().As<T>();
+            return b.RegisterType<T>()
+                    .As<T>();
         }
 
         /// <summary>
@@ -34,20 +37,24 @@ namespace Autofac
         /// <returns></returns>
         public static IRegistrationBuilder<T, SimpleActivatorData, SingleRegistrationStyle> RegisterAndActivate<T>(this ContainerBuilder b, Func<IComponentContext, T> c)
         {
-            b.RegisterType<StartableBootstrap<T>>().As<IStartable>().SingleInstance();
+            b.RegisterType<StartableBootstrap<T>>()
+             .As<IStartable>()
+             .SingleInstance();
 
-            return b.Register(c).As<T>();
+            return b.Register(c)
+                    .As<T>();
         }
 
         public static IRegistrationBuilder<ScopeFactory<T>, ConcreteReflectionActivatorData, SingleRegistrationStyle> RegisterScopeFactory<T>(this ContainerBuilder b, LifetimeScopeConfigurationDelegate c = null)
         {
-            return b.RegisterType<ScopeFactory<T>>().OnActivated(args =>
-                {
-                    if (c != null)
-                    {
-                        args.Instance.OnLifetimeScopeConfiguring += c;
-                    }
-                });
+            return b.RegisterType<ScopeFactory<T>>()
+                    .OnActivated(args =>
+                        {
+                            if (c != null)
+                            {
+                                args.Instance.OnLifetimeScopeConfiguring += c;
+                            }
+                        });
         }
 
         public static IRegistrationBuilder<TLimit, TReflectionActivatorData, TStyle> WithParameter<TParam, TLimit, TReflectionActivatorData, TStyle>(this IRegistrationBuilder<TLimit, TReflectionActivatorData, TStyle> registration, Func<ParameterInfo, IComponentContext, TParam> valueProvider) where TReflectionActivatorData : ReflectionActivatorData

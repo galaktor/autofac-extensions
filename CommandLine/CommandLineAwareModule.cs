@@ -20,14 +20,24 @@ namespace Autofac.CommandLine
 
         static CommandLineAwareModule()
         {
-            args = Environment.GetCommandLineArgs().Skip(1).Where(a => a.StartsWith("-")).Select(a => a.SkipWhile(c => c == '-').Aggregate("", (agg, e) => agg += e)).Where(a => !String.IsNullOrWhiteSpace(a)).Select(a => new SetArg(a));
+            args = Environment.GetCommandLineArgs()
+                              .Skip(1)
+                              .Where(a => a.StartsWith("-"))
+                              .Select(a => a.SkipWhile(c => c == '-')
+                                            .Aggregate("", (agg, e) => agg += e))
+                              .Where(a => !String.IsNullOrWhiteSpace(a))
+                              .Select(a => new SetArg(a));
         }
 
         protected CommandLineAwareModule()
         {
-            props = GetType().GetProperties().Select(p => new PropArg(this, p));
+            props = GetType()
+                .GetProperties()
+                .Select(p => new PropArg(this, p));
 
-            var aliasAtt = GetType().GetCustomAttributes(true).FirstOrDefault(a => a.GetType() == typeof (AliasAttribute)) as AliasAttribute;
+            var aliasAtt = GetType()
+                               .GetCustomAttributes(true)
+                               .FirstOrDefault(a => a.GetType() == typeof (AliasAttribute)) as AliasAttribute;
             if (aliasAtt != null)
             {
                 Alias = aliasAtt.Alias;
@@ -65,7 +75,8 @@ namespace Autofac.CommandLine
         protected override sealed void Load(ContainerBuilder builder)
         {
             IEnumerable<SetArg> matches = from a in args
-                                          where a.TargetName == Alias || a.TargetName == GetType().Name
+                                          where a.TargetName == Alias || a.TargetName == GetType()
+                                                                                             .Name
                                           select a;
 
             foreach (var m in matches)

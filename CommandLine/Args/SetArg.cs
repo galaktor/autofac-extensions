@@ -17,7 +17,10 @@ namespace Autofac.CommandLine.Args
         {
             // TODO: checks
 
-            string[] parts = rawblob.Split(':', ',').Select(a => a.Trim()).Where(a => !string.IsNullOrWhiteSpace(a)).ToArray();
+            string[] parts = rawblob.Split(':', ',')
+                                    .Select(a => a.Trim())
+                                    .Where(a => !string.IsNullOrWhiteSpace(a))
+                                    .ToArray();
             TargetName = parts[0];
 
             for (int i = 1; i < parts.Length; i++)
