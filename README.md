@@ -7,7 +7,7 @@ Some nice helpers for when working with the great .NET IoC container Autofac.
 Allows you to load modules and set module properties via command line arguments. Example:
 
 ```bash
-$>  MyApp.exe -l:SomeModule,MyAssembly -SomeModule:Foo=Bar,Baz=42 -AnotherModule:Disabled
+$>  MyApp.exe -l:SomeModule,MyAssembly:Foo=Bar -s:SomeModule:Baz=42 -s:AnotherModule:Disabled
 ```
 
 Detailed documentation to follow soon. The gist of it is that for loading modules via the command line, you can use the CommandLineSettingsReader like so
@@ -23,7 +23,8 @@ using (ILifetimeScope l = c.BeginLifetimeScope())
 }
 ```
 
-At the moment this only support loading of modules, I will expand it soon to provide everything you can configure in XML should you want to do so.
+At the moment this only support loading of modules with simple properties, I will expand it soon to provide everything you can configure in XML should you want to do so.
+To load a module with or without properties, the default flag is "load:" or alternatively "l:".
 
 
 For modules to be command line configurable you have to derive your module from CommandLineAwareModule instead of the vanilla Autofac Module. It's not great, but does the job right now, but I'm still working on it.
@@ -43,15 +44,18 @@ public class MyModule: CommandLineAwareModule
 }
 ```
 
+Use the "set:" or "s:" flags to change a CommandLineAwareModule's properties after creation (e.g. via ConfigurationSettingsReader) but before it's Load method is called.
 Notice that you can either use the full names of types and properties, or mark them with AliasAttribute to make the command line options less verbose.
 
 ```bash
-$>  MyApp.exe -MyModule:SomeNumber=42
+$>  MyApp.exe -s:MyModule:SomeNumber=42
 ```
 
 ```bash
-$>  MyApp.exe -m:nr=42
+$>  MyApp.exe -s:m:nr=42
 ```
+
+I am working to remove the "set"/"s" flag but for now it's safer to not collide with the previous "load"/"l" flags.
 
 ## ScopeFactory<T>
 
