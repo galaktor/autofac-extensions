@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Autofac.CommandLine.Args;
+using Autofac.CommandLine.Help;
 
 namespace Autofac.CommandLine
 {
@@ -14,10 +15,11 @@ namespace Autofac.CommandLine
     // -MyModule:foo=bar
     // -m:f=bar
 
+
     public class CommandLineAwareModule : Module
     {
         public static readonly string[] DefaultSetFlags = new[] {"set:", "s:"};
-        private readonly IEnumerable<PropArg> props;
+        private readonly IEnumerable<Prop> props;
         private readonly List<SetArg> sets = new List<SetArg>();
         private bool enabled = true;
 
@@ -40,12 +42,12 @@ namespace Autofac.CommandLine
                 }
             }
 
-            props = GetType().GetProperties().Select(p => new PropArg(this, p));
+            props = this.GetProps();
 
-            var aliasAtt = GetType().GetCustomAttributes(true).FirstOrDefault(a => a.GetType() == typeof (AliasAttribute)) as AliasAttribute;
+            var aliasAtt = this.GetModuleAlias();
             if (aliasAtt != null)
             {
-                Alias = aliasAtt.Alias;
+                Alias = aliasAtt;
             }
         }
 
@@ -63,21 +65,24 @@ namespace Autofac.CommandLine
             set { enabled = !value; }
         }
 
-        public string Alias { get; private set; }
+        public AliasAttribute Alias { get; private set; }
 
         protected override sealed void Load(ContainerBuilder builder)
         {
+            // TODO: register ModuleInfo so that it can be picked up later
+            builder.RegisterInstance(new ModuleInfo(GetType(), Alias, props));
+
             IEnumerable<SetArg> matches = from s in sets
-                                          where s.TargetName == Alias || s.TargetName == GetType().Name
+                                          where Alias != null ? s.TargetName == Alias.Alias : false || s.TargetName == GetType().Name
                                           select s;
 
             foreach (var m in matches)
             {
                 foreach (var a in m.Args)
                 {
-                    IEnumerable<PropArg> toSet = from p in props
-                                                 where p.FullName == a.Key || p.Alias == a.Key
-                                                 select p;
+                    IEnumerable<Prop> toSet = from p in props
+                                              where p.Alias != null ? p.Alias.Alias == a.Key : false || p.FullName == a.Key
+                                              select p;
                     foreach (var p in toSet)
                     {
                         p.Set(a.Value);

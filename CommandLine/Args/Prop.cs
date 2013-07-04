@@ -11,12 +11,12 @@ using Autofac.Core;
 
 namespace Autofac.CommandLine.Args
 {
-    public class PropArg
+    public class Prop
     {
         private readonly PropertyInfo p;
         private readonly IModule target;
 
-        public PropArg(IModule target, PropertyInfo p)
+        public Prop(IModule target, PropertyInfo p)
         {
             this.target = target;
             this.p = p;
@@ -25,13 +25,13 @@ namespace Autofac.CommandLine.Args
             var aliasAtt = p.GetCustomAttributes(true).FirstOrDefault(a => a.GetType() == typeof (AliasAttribute)) as AliasAttribute;
             if (aliasAtt != null)
             {
-                Alias = aliasAtt.Alias;
+                Alias = aliasAtt;
             }
         }
 
         public string FullName { get; set; }
         public Type Type { get; set; }
-        public string Alias { get; set; }
+        public AliasAttribute Alias { get; set; }
 
         public void Set(string value)
         {

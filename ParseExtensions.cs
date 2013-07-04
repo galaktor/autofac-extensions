@@ -4,7 +4,11 @@
 // Author E-Mail: galaktor@gmx.de
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using Autofac.CommandLine;
+using Autofac.CommandLine.Args;
+using Autofac.Core;
 
 namespace Autofac
 {
@@ -23,6 +27,16 @@ namespace Autofac
             }
 
             return input.Split(separators).Select(s => s.Trim()).Where(s => !String.IsNullOrWhiteSpace(s)).ToArray();
+        }
+
+        public static AliasAttribute GetModuleAlias(this IModule m)
+        {
+            return m.GetType().GetCustomAttributes(true).FirstOrDefault(a => a.GetType() == typeof (AliasAttribute)) as AliasAttribute;
+        }
+
+        public static IEnumerable<Prop> GetProps(this IModule m)
+        {
+            return m.GetType().GetProperties().Select(p => new Prop(m, p));
         }
     }
 }

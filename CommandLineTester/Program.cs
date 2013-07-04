@@ -3,8 +3,10 @@
 // Author URL:    http://www.galaktor.net
 // Author E-Mail: galaktor@gmx.de
 
+using System;
 using Autofac;
 using Autofac.CommandLine;
+using Autofac.CommandLine.Help;
 
 namespace CommandLineTester
 {
@@ -18,9 +20,14 @@ namespace CommandLineTester
 
             using (ILifetimeScope l = c.BeginLifetimeScope())
             {
+                // TODO: will check for optional flag
+                l.PrintHelpAndExit();
                 //var sf = l.Resolve<ScopeFactory<Foo>>();
                 //sf.Get(new {blah = "test"});
             }
+
+            Console.WriteLine("Press ENTER to exit.");
+            Console.ReadLine();
         }
     }
 }

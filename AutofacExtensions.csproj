@@ -76,13 +76,15 @@
     <Compile Include="CommandLine\CmdLineSectionHandler.cs" />
     <Compile Include="CommandLine\CommandLineExtensions.cs" />
     <Compile Include="CommandLine\CommandLineSettingsReader.cs" />
+    <Compile Include="CommandLine\Help\HelpExtensions.cs" />
+    <Compile Include="CommandLine\Help\ModuleInfo.cs" />
     <Compile Include="LifetimeScopeConfigurationDelegate.cs" />
     <Compile Include="CommandLine\Args\LoadArg.cs" />
     <Compile Include="ParseExtensions.cs" />
     <Compile Include="CommandLine\Args\SetArg.cs" />
     <Compile Include="AutofacExtensions.cs" />
     <Compile Include="CommandLine\CommandLineAwareModule.cs" />
-    <Compile Include="CommandLine\Args\PropArg.cs" />
+    <Compile Include="CommandLine\Args\Prop.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScopeFactory.cs" />
     <Compile Include="StartableBootstrap.cs" />
