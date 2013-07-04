@@ -6,7 +6,6 @@
 using System;
 using System.Linq;
 using System.Reflection;
-using Autofac.Configuration.Util;
 using Autofac.Core;
 
 namespace Autofac.CommandLine.Args

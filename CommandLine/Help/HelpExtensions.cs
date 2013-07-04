@@ -1,3 +1,8 @@
+// Copyright (c)  2013 Raphael Estrada
+// License:       The MIT License - see "LICENSE" file for details
+// Author URL:    http://www.galaktor.net
+// Author E-Mail: galaktor@gmx.de
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +27,7 @@ namespace Autofac.CommandLine.Help
             // TODO: example call(s) and descriptions provided through ModuleInfo and Attribute(s)
 
             sb.AppendLine();
-            
+
             var margin = 2;
             var col1Width = infos.Max(info => info.Props.Max(prop => prop.FullName.Length)) + margin;
             var col2Width = infos.Max(info => info.ModuleAlias == null ? 6 : info.ModuleAlias.ToString().Length) + margin;
