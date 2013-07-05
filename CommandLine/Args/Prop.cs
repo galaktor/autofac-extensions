@@ -34,7 +34,7 @@ namespace Autofac.CommandLine.Args
 
         public void Set(string value)
         {
-            if (String.IsNullOrWhiteSpace(value) || Type == typeof (bool))
+            if (String.IsNullOrWhiteSpace(value) && Type == typeof (bool))
             {
                 // treat presence of boolean flag as implicit "True" 
                 value = "true";
