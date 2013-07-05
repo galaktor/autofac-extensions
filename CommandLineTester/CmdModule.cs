@@ -9,6 +9,19 @@ using Autofac.CommandLine;
 
 namespace CommandLineTester
 {
+    [Alias("cmd")]
+    public class BlahModule: CommandLineAwareModule
+    {
+        [Alias("f")]
+        public string Foo { get; set; }
+
+        protected override void Load_(ContainerBuilder builder)
+        {
+            Console.WriteLine("BlahModule.Load()");
+        }
+    }
+
+    [Alias("cmd")]
     public class CmdModule : CommandLineAwareModule
     {
         [Alias("c")]

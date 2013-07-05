@@ -44,7 +44,9 @@ namespace Autofac.CommandLine.Args
 
                 foreach (var part in propParts)
                 {
-                    _properties.Add(new AssignmentArg(part));
+                    var assignmentArg = new AssignmentArg(part);
+                    assignmentArg.Key = assignmentArg.Key.ToPropertyFullName(FullyQualifiedTypeName);
+                    _properties.Add(assignmentArg);
                 }
             }
         }
@@ -56,13 +58,21 @@ namespace Autofac.CommandLine.Args
 
         public override string ToString()
         {
-            string result = ModuleTypeName;
-            if (!String.IsNullOrWhiteSpace(AssemblyName))
-            {
-                result += ", " + AssemblyName;
-            }
+            return FullyQualifiedTypeName;
+        }
 
-            return result;
+        private string FullyQualifiedTypeName
+        {
+            get
+            {
+                string result = ModuleTypeName;
+                if (!String.IsNullOrWhiteSpace(AssemblyName))
+                {
+                    result += ", " + AssemblyName;
+                }
+
+                return result;
+            }
         }
     }
 }

@@ -38,5 +38,23 @@ namespace Autofac
         {
             return m.GetType().GetProperties().Select(p => new Prop(m, p));
         }
+
+        public static string ToPropertyFullName(this string alias, string fullyQualifiedTypeName)
+        {
+            string result = alias;
+
+            var t = Type.GetType(fullyQualifiedTypeName);
+            var props = t.GetProperties();
+            foreach (var p in props)
+            {
+                var aliasAtt = p.GetCustomAttributes(typeof (AliasAttribute), true).FirstOrDefault() as AliasAttribute;
+                if (aliasAtt == null ? false : alias == aliasAtt.Alias || p.Name == alias)
+                {
+                    result = p.Name;
+                }
+            }
+
+            return result;
+        }
     }
 }
