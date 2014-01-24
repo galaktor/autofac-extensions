@@ -20,22 +20,22 @@ namespace Autofac
     {
         private readonly ILifetimeScope parent;
 
+        public event LifetimeScopeConfigurationDelegate OnLifetimeScopeConfiguring = (p,b) => { };
+
         public ScopeFactory(ILifetimeScope parent)
         {
             this.parent = parent;
         }
 
-        public event LifetimeScopeConfigurationDelegate OnLifetimeScopeConfiguring = (p, b) => { };
-
         /// <summary>
-        ///     Resolve an instance of TResult within it's own child lifetimescope.
+        /// Resolve an instance of TResult within it's own child lifetimescope.
         /// </summary>
         /// <param name="context">Scanned with reflection, the properties of this object will become services in the child lifetime scope.</param>
         /// <param name="args">Ctor arguments to be provided to the resolved service.</param>
         /// <returns>The service registered as TResult in the autofac scope.</returns>
         public TResult Get(object context, object[] args)
         {
-            ILifetimeScope scope = parent.BeginLifetimeScope(typeof (TResult), builder =>
+            var scope = parent.BeginLifetimeScope(typeof (TResult), builder =>
                 {
                     RegisterContextProperties(context, builder);
                     OnLifetimeScopeConfiguring(parent, builder);
@@ -44,24 +44,24 @@ namespace Autofac
         }
 
         /// <summary>
-        ///     Registers all properties on the context object as individual services in the builder.
+        /// Registers all properties on the context object as individual services in the builder.
         /// </summary>
         /// <param name="context">An object that will be scanned for it's properties using reflection.</param>
         /// <param name="builder">The autofac builder with which the services will be registered.</param>
         private void RegisterContextProperties(object context, ContainerBuilder builder)
         {
-            Type type = context.GetType();
-            PropertyInfo[] props = type.GetProperties();
+            var type = context.GetType();
+            var props = type.GetProperties();
             foreach (var prop in props)
             {
-                object service = prop.GetValue(context, null);
-                Type serviceType = prop.PropertyType;
+                var service = prop.GetValue(context, null);
+                var serviceType = prop.PropertyType;
                 builder.Register(c => service).As(serviceType);
             }
         }
 
         /// <summary>
-        ///     Resolve an instance of TResult within it's own child lifetimescope.
+        /// Resolve an instance of TResult within it's own child lifetimescope.
         /// </summary>
         /// <param name="context">Scanned with reflection, the properties of this object will become services in the child lifetime scope.</param>
         /// <param name="args">Ctor arguments to be provided to the resolved service.</param>
@@ -73,7 +73,8 @@ namespace Autofac
             {
                 output = Get(context, args);
                 return true;
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 output = default(TResult);
                 return false;
@@ -81,7 +82,7 @@ namespace Autofac
         }
 
         /// <summary>
-        ///     Converts an array of arguments into an enumerable of autofac Parameters so they can be provided as args to a Resolve call.
+        /// Converts an array of arguments into an enumerable of autofac Parameters so they can be provided as args to a Resolve call.
         /// </summary>
         /// <param name="args">Ctor parameters for the target object. Will be matched by order.</param>
         /// <returns>Array of Parameters</returns>
@@ -93,7 +94,7 @@ namespace Autofac
             var result = new List<Parameter>(args.Length);
             for (int i = 0; i < args.Length; i++)
             {
-                object arg = args[i];
+                var arg = args[i];
                 result.Add(new PositionalParameter(i, arg));
             }
 
@@ -101,7 +102,7 @@ namespace Autofac
         }
 
         /// <summary>
-        ///     Resolve an instance of TResult within it's own child lifetimescope.
+        /// Resolve an instance of TResult within it's own child lifetimescope.
         /// </summary>
         /// <param name="context">Scanned with reflection, the properties of this object will become services in the child lifetime scope.</param>
         /// <returns>The service registered as TResult in the autofac scope.</returns>
@@ -115,7 +116,7 @@ namespace Autofac
         }
 
         /// <summary>
-        ///     Resolve an instance of TResult within it's own child lifetimescope.
+        /// Resolve an instance of TResult within it's own child lifetimescope.
         /// </summary>
         /// <param name="context">Scanned with reflection, the properties of this object will become services in the child lifetime scope.</param>
         /// <param name="output">The service registered as TResult in the autofac scope.</param>
@@ -126,7 +127,8 @@ namespace Autofac
             {
                 output = Get(context);
                 return true;
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 output = default(TResult);
                 return false;

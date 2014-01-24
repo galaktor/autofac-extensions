@@ -15,22 +15,27 @@ namespace Autofac.CommandLine
     // -MyModule:foo=bar
     // -m:f=bar
 
-
     public class CommandLineAwareModule : Module
     {
         public static readonly string[] DefaultSetFlags = new[] {"set:", "s:"};
-        private readonly IEnumerable<Prop> props;
+        private readonly IEnumerable<PropArg> props;
         private readonly List<SetArg> sets = new List<SetArg>();
         private bool enabled = true;
 
-        public CommandLineAwareModule()
-            : this(DefaultSetFlags)
+        protected CommandLineAwareModule()
+            :this(new ParamList(Environment.GetCommandLineArgs()), DefaultSetFlags)
+        {
+            
+        }
+
+        protected CommandLineAwareModule(ParamList args)
+            : this(args, DefaultSetFlags)
         {
         }
 
-        public CommandLineAwareModule(IEnumerable<string> setFlags)
+        protected CommandLineAwareModule(ParamList argsRaw, IEnumerable<string> setFlags)
         {
-            var args = Environment.GetCommandLineArgs().AsCleanedArgs();
+            var args = argsRaw.Args.AsCleanedArgs();
 
             foreach (var arg in args)
             {
@@ -80,7 +85,7 @@ namespace Autofac.CommandLine
             {
                 foreach (var a in m.Args)
                 {
-                    IEnumerable<Prop> toSet = from p in props
+                    IEnumerable<PropArg> toSet = from p in props
                                               where p.Alias != null ? p.Alias.Alias == a.Key : false || p.FullName == a.Key
                                               select p;
                     foreach (var p in toSet)

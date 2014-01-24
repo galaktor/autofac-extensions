@@ -34,9 +34,9 @@ namespace Autofac
             return m.GetType().GetCustomAttributes(true).FirstOrDefault(a => a.GetType() == typeof (AliasAttribute)) as AliasAttribute;
         }
 
-        public static IEnumerable<Prop> GetProps(this IModule m)
+        public static IEnumerable<PropArg> GetProps(this IModule m)
         {
-            return m.GetType().GetProperties().Select(p => new Prop(m, p));
+            return m.GetType().GetProperties().Select(p => new PropArg(m, p));
         }
 
         public static string ToPropertyFullName(this string alias, string fullyQualifiedTypeName)

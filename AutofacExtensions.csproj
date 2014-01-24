@@ -67,24 +67,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandLine\AliasAttribute.cs" />
-    <Compile Include="CommandLine\Args\AssignmentArg.cs" />
-    <Compile Include="CommandLine\CmdLineModuleElement.cs" />
-    <Compile Include="CommandLine\CmdLineModulesCollection.cs" />
-    <Compile Include="CommandLine\CmdLinePropertyElement.cs" />
-    <Compile Include="CommandLine\CmdLinePropertyElementCollection.cs" />
-    <Compile Include="CommandLine\CmdLineSectionHandler.cs" />
-    <Compile Include="CommandLine\CommandLineExtensions.cs" />
-    <Compile Include="CommandLine\CommandLineSettingsReader.cs" />
-    <Compile Include="CommandLine\Help\HelpExtensions.cs" />
-    <Compile Include="CommandLine\Help\ModuleInfo.cs" />
-    <Compile Include="LifetimeScopeConfigurationDelegate.cs" />
-    <Compile Include="CommandLine\Args\LoadArg.cs" />
-    <Compile Include="ParseExtensions.cs" />
-    <Compile Include="CommandLine\Args\SetArg.cs" />
     <Compile Include="AutofacExtensions.cs" />
-    <Compile Include="CommandLine\CommandLineAwareModule.cs" />
-    <Compile Include="CommandLine\Args\Prop.cs" />
+    <Compile Include="Configuration\CommandLine\AliasAttribute.cs" />
+    <Compile Include="Configuration\CommandLine\Args\AssignmentArg.cs" />
+    <Compile Include="Configuration\CommandLine\Args\LoadArg.cs" />
+    <Compile Include="Configuration\CommandLine\Args\PropArg.cs" />
+    <Compile Include="Configuration\CommandLine\Args\SetArg.cs" />
+    <Compile Include="Configuration\CommandLine\CmdLineModuleElement.cs" />
+    <Compile Include="Configuration\CommandLine\CmdLineModulesCollection.cs" />
+    <Compile Include="Configuration\CommandLine\CmdLinePropertyElement.cs" />
+    <Compile Include="Configuration\CommandLine\CmdLinePropertyElementCollection.cs" />
+    <Compile Include="Configuration\CommandLine\CmdLineSectionHandler.cs" />
+    <Compile Include="Configuration\CommandLine\CommandLineAwareModule.cs" />
+    <Compile Include="Configuration\CommandLine\CommandLineExtensions.cs" />
+    <Compile Include="Configuration\CommandLine\CommandLineSettingsReader.cs" />
+    <Compile Include="Configuration\CommandLine\ParamList.cs" />
+    <Compile Include="Configuration\CommandLine\Help\HelpExtensions.cs" />
+    <Compile Include="Configuration\CommandLine\Help\ModuleInfo.cs" />
+    <Compile Include="LifetimeScopeConfigurationDelegate.cs" />
+    <Compile Include="ParseExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScopeFactory.cs" />
     <Compile Include="StartableBootstrap.cs" />

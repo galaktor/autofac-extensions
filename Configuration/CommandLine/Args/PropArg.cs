@@ -7,15 +7,16 @@ using System;
 using System.Linq;
 using System.Reflection;
 using Autofac.Core;
+using Autofac.Configuration.Util;
 
 namespace Autofac.CommandLine.Args
 {
-    public class Prop
+    public class PropArg
     {
         private readonly PropertyInfo p;
         private readonly IModule target;
 
-        public Prop(IModule target, PropertyInfo p)
+        public PropArg(IModule target, PropertyInfo p)
         {
             this.target = target;
             this.p = p;

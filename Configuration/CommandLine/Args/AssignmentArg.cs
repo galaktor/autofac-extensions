@@ -14,7 +14,10 @@ namespace Autofac.CommandLine.Args
         {
             string[] parts = raw.SplitClean('=');
             Key = parts[0];
-            Value = parts[1];
+            if(parts.Length > 1)
+            {
+                Value = parts[1];   
+            }
         }
     }
 }

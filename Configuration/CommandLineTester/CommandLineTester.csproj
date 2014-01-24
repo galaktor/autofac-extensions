@@ -53,15 +53,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AutofacExtensions.csproj">
-      <Project>{D61BB7B4-D1DA-4D35-9E54-D67C5AE94E41}</Project>
-      <Name>AutofacExtensions</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\AutofacExtensions.csproj">
+      <Project>{d61bb7b4-d1da-4d35-9e54-d67c5ae94e41}</Project>
+      <Name>AutofacExtensions</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

@@ -16,10 +16,11 @@ namespace Autofac.CommandLine.Args
 
         public LoadArg(string arg)
         {
-            string[] parts = arg.SplitClean(':');
+            //string[] parts = arg.SplitClean(':');
 
             // ALWAYS PARSE ASSEMBLY/MODULE
-            string modType = parts[0];
+            var sep = arg.IndexOf(':');
+            string modType = sep >= 0 ? arg.Substring(0, sep) : arg;
             string[] modTypeParts = modType.SplitClean(',');
             switch (modTypeParts.Length)
             {
@@ -37,9 +38,10 @@ namespace Autofac.CommandLine.Args
             }
 
             // IF PROVIDED, PARSE PROPERTIES
-            if (parts.Length > 1)
+            arg = sep >= 0 ? arg.Substring(sep + 1) : string.Empty;
+            if (!String.IsNullOrWhiteSpace(arg))
             {
-                string modProps = parts[1];
+                string modProps = arg;
                 string[] propParts = modProps.SplitClean(',');
 
                 foreach (var part in propParts)

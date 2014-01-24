@@ -13,9 +13,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("AutofacExtensions")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Susquehanna International Group Ireland")]
+[assembly: AssemblyCompany("Raphael Estrada")]
 [assembly: AssemblyProduct("AutofacExtensions")]
-[assembly: AssemblyCopyright("Copyright (c) Susquehanna International Group Ireland 2012")]
+[assembly: AssemblyCopyright("Copyright (c) Raphael Estrada 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

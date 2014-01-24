@@ -4,7 +4,6 @@
 // Author E-Mail: galaktor@gmx.de
 
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Autofac.CommandLine.Args
 {
@@ -17,13 +16,18 @@ namespace Autofac.CommandLine.Args
         {
             // TODO: checks
 
-            var parts = rawblob.Split(':').Select(a => a.Trim()).Where(a => !string.IsNullOrWhiteSpace(a));
-            TargetName = parts.First();
+            //var parts = rawblob.Split(':').Select(a => a.Trim()).Where(a => !string.IsNullOrWhiteSpace(a));
+            var sep = rawblob.IndexOf(':');
+            TargetName = sep >= 0 ? rawblob.Substring(0, sep) : rawblob;
 
-            var rest = parts.Skip(1).SelectMany(s => s.Split(','));
-            foreach (var arg in rest)
+            if(sep >= 0)
             {
-                Args.Add(new AssignmentArg(arg));
+                rawblob = rawblob.Substring(sep + 1);
+                var rest = rawblob.Split(',');
+                foreach (var arg in rest)
+                {
+                    Args.Add(new AssignmentArg(arg));
+                }    
             }
         }
     }

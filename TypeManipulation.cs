@@ -9,7 +9,7 @@ using System.Configuration;
 using System.Globalization;
 using System.Reflection;
 
-namespace Autofac
+namespace Autofac.Configuration.Util
 {
     // copied and slightly modified since the original one in the Aufoac sources is internal
     public static class TypeManipulation

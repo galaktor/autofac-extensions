@@ -11,7 +11,7 @@ namespace Autofac.CommandLine.Help
 {
     public class ModuleInfo
     {
-        public ModuleInfo(Type type, AliasAttribute modAlias, IEnumerable<Prop> props)
+        public ModuleInfo(Type type, AliasAttribute modAlias, IEnumerable<PropArg> props)
         {
             Type = type;
             ModuleAlias = modAlias;
@@ -20,6 +20,6 @@ namespace Autofac.CommandLine.Help
 
         public Type Type { get; private set; }
         public AliasAttribute ModuleAlias { get; private set; }
-        public IEnumerable<Prop> Props { get; private set; }
+        public IEnumerable<PropArg> Props { get; private set; }
     }
 }
