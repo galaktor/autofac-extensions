@@ -93,6 +93,8 @@ Examples that will work on the command line with the above module:
 
 ```$>  MyApp.exe -s:m:nr=42```
 
+Note that no conflict resolution happens if the type name or alias of multiple modules is the same. Every module parses the command line independantly, so if they have the same alias or name setting a property once will apply to them all (if the property exists on them all, that is).
+
 ## ScopeFactory<T>
 
 A factory that when called will resolve T within it's own customized lifetime scope. The provided object will be scanned for it's properties, which will independently be registered as services in the new scope only. It's a convenient way to register or replace certain services within their own context and dynamically providing services to that context at runtime.
