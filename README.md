@@ -52,7 +52,7 @@ You can modify the properties of modules which are already loaded via the main X
 
 Where ```<module>``` can either be the module type name (i.e. ```FooModule```) or an alias if compiled with one (i.e. ```foo```).
 
-Note that no conflict resolution happens if the type name or alias of multiple modules is the same. Every module parses the command line independantly, so if they have the same alias or name setting a property once will apply to them all (if the property exists on them all, that is).
+Note that no conflict resolution happens if the type name or alias of multiple modules is the same. Every module parses the command line independently, so if they have the same alias or name setting a property once will apply to them all (if the property exists on them all, that is).
 
 ### load a new module
 Using the ```-l``` flag you can load a module that was not already loaded in the XML. 
