@@ -78,7 +78,7 @@ namespace Autofac.CommandLine
             builder.RegisterInstance(new ModuleInfo(GetType(), Alias, props));
 
             IEnumerable<SetArg> matches = from s in sets
-                                          where Alias != null ? s.TargetName == Alias.Alias : false || s.TargetName == GetType().Name
+                                          where (Alias != null ? s.TargetName == Alias.Alias : false) || s.TargetName == GetType().Name
                                           select s;
 
             foreach (var m in matches)
@@ -86,7 +86,7 @@ namespace Autofac.CommandLine
                 foreach (var a in m.Args)
                 {
                     IEnumerable<PropArg> toSet = from p in props
-                                              where p.Alias != null ? p.Alias.Alias == a.Key : false || p.FullName == a.Key
+                                              where (p.Alias != null ? p.Alias.Alias == a.Key : false) || p.FullName == a.Key
                                               select p;
                     foreach (var p in toSet)
                     {
