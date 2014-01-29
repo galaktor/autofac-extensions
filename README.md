@@ -85,13 +85,13 @@ public class MyModule: CommandLineAwareModule
 
 Examples that will work on the command line with the above module:
 
-```MyApp.exe -s:MyModule:SomeNumber=42```
+```$>  MyApp.exe -s:MyModule:SomeNumber=42```
 
-```MyApp.exe -s:m:SomeNumber=42```
+```$>  MyApp.exe -s:m:SomeNumber=42```
 
-```MyApp.exe -s:MyModule:nr=42```
+```$>  MyApp.exe -s:MyModule:nr=42```
 
-```MyApp.exe -s:m:nr=42```
+```$>  MyApp.exe -s:m:nr=42```
 
 ## ScopeFactory<T>
 
