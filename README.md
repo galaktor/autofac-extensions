@@ -44,18 +44,54 @@ public class MyModule: CommandLineAwareModule
 }
 ```
 
-Use the "set:" or "s:" flags to change a CommandLineAwareModule's properties after creation (e.g. via ConfigurationSettingsReader) but before it's Load method is called.
-Notice that you can either use the full names of types and properties, or mark them with AliasAttribute to make the command line options less verbose.
+### set a module property
+You can modify the properties of modules which are already loaded via the main XML file using the ```-s``` flag. Properties are comma-separated for now, I can change that once someone inevitably run into a case where we need commas in the value :-)
 
-```bash
-$>  MyApp.exe -s:MyModule:SomeNumber=42
+ Template:: ```-s:<module>:<property1>=<value1>,<property2>=<value2>```
+ Example:: ```-s:MyModule:Foo=bar,baz=42```
+
+Where ```<module>``` can either be the module type name (i.e. ```FooModule```) or an alias if compiled with one (i.e. ```foo```).
+
+
+### load a new module
+Using the ```-l``` flag you can load a module that was not already loaded in the XML. 
+
+ Template:: ```-l:<ModuleType,ModuleAssembly>:<property>=<value>``` 
+ Example (module load only):: ```-l:Name.Space.MyModule,MyAssembly```
+ Example (with properties):: ```-l:Name.Space.MyModule,MyAssembly:Foo=bar,baz=42```
+
+### load and set
+Both flags can be used in combination:
+
+Example:: ```-l:MyModule,MyAssembly -s:MyModule:Foo=bar -s:MyModule:Baz=42```
+
+### Enabling and disabling a module
+Even if a module is loaded in the XML, you can prevent it's loading using the ```on``` and ```off``` properties, which are by default implemented in the ```CommandLineAwareModule```.
+
+ Example (full):: ```-s:MyModule:Enabled=false```
+ Example (alias):: ```-s:MyModule:off```
+
+### Aliases
+Module names and property names can have shorter aliases for convenience. Command line settings (both module names and properties) will try the alias first (if they have one) but fall back to their type name if they either don't have an alias or no setting was found for their alias. This means usage of Alias is entirely optional, but convenient in cases where you use the command line a lot and don't want to type too much.
+
+```csharp
+[Alias("m")]
+public class MyModule: CommandLineAwareModule
+{
+    [Alias("nr")]
+    public int SomeNumber { get; set; }
+}
 ```
 
-```bash
-$>  MyApp.exe -s:m:nr=42
-```
+Examples that will work on the command line with the above module:
 
-I am working to remove the "set"/"s" flag but for now it's safer to not collide with the previous "load"/"l" flags.
+```MyApp.exe -s:MyModule:SomeNumber=42```
+
+```MyApp.exe -s:m:SomeNumber=42```
+
+```MyApp.exe -s:MyModule:nr=42```
+
+```MyApp.exe -s:m:nr=42```
 
 ## ScopeFactory<T>
 
