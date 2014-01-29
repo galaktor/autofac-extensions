@@ -52,7 +52,34 @@ You can modify the properties of modules which are already loaded via the main X
 
 Where ```<module>``` can either be the module type name (i.e. ```FooModule```) or an alias if compiled with one (i.e. ```foo```).
 
+#### Conflicts
 Note that no conflict resolution happens if the type name or alias of multiple modules is the same. Every module parses the command line independently, so if they have the same alias or name setting a property once will apply to them all (if the property exists on them all, that is).
+
+```csharp
+namespace Foo
+{
+  class MyModule: CommandLineAwareModule
+  {
+    public int SomeNumber { get; set; }
+    public int AnotherNumber { get; set; }
+  }
+}
+
+namespace Bar
+{  class MyModule: CommandLineAwareModule
+   {
+     public int SomeNumber { get; set; }
+   }
+}
+```
+
+This will set SomeNumber on *both* modules:
+
+```$>  MyApp.exe -s:MyModule:SomeNumber=42```
+
+This wills set AnotherNumber on the Foo module only, since the Bar module will ignore it:
+
+```$>  MyApp.exe -s:MyModule:AnotherNumber=42```
 
 ### load a new module
 Using the ```-l``` flag you can load a module that was not already loaded in the XML. 
